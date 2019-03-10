@@ -1,28 +1,54 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <h2>请添加评论</h2>
+    <div class="add-list">
+      <Add :comments="comments" :addComment="addComment" class="add"></Add>
+      <List :comments="comments" :deleteComment="deleteComment"></List>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+  import Add from './components/Add.vue'
+  import List from './components/List.vue'
 
-export default {
-  name: 'app',
-  components: {
-    HelloWorld
+  export default {
+    name: 'App',
+    components: {
+      Add,
+      List
+    },
+    data: function () {
+      return {
+        comments: [
+          {name: '小明', content: 'vue很好用。'},
+          {name: '小华', content: 'vue挺好的。'},
+          {name: '小刚', content: 'vue真好。'}
+        ]
+      }
+    },
+    methods: {
+      addComment: function (comment) {
+        this.comments.push(comment);
+      },
+      deleteComment: function (index) {
+        this.comments.splice(index, 1);
+      }
+    }
   }
-}
 </script>
 
 <style lang="less">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  h2 {
+    text-align: center;
+  }
+
+  .add-list {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .add {
+    margin: 0 200px;
+  }
 </style>
